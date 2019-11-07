@@ -9,13 +9,11 @@ BaseModel - create the base object
 
 class BaseModel():
     """ BaseModel """
-    def __init__(self, name = "", my_number = 0):
+    def __init__(self):
         """
         __init__ construct the class, initialice the
-        name, my_number, id, created at and updated at.
+         id, created at and updated at.
         """
-        self.name = name
-        self.my_number = my_number
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
