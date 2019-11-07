@@ -32,17 +32,14 @@ class BaseModel():
         """
         save - update the date of update_at.
         """
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """
         to_dict - return a string to a dict of the BaseModel.
         """
-        for key in self.__dict__:
-            if key == "create_at":
-                self.__dict__[key] = self.create_at.isoformat()
-            if key == "update_at":
-                self.__dict__[key] = self.update_at.isoformat()
+        self.__dict__["created_at"] = self.created_at.isoformat()
+        self.__dict__["updated_at"] = self.updated_at.isoformat()
         self.__dict__['__class__'] = __class__.__name__
         return self.__dict__
 
