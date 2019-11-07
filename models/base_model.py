@@ -10,14 +10,39 @@ BaseModel - create the base object
 class BaseModel():
     """ BaseModel """
     def __init__(self, name = "", my_number = 0):
+        """
+        __init__ construct the class, initialice the
+        name, my_number, id, created at and updated at.
+        """
         self.name = name
         self.my_number = my_number
         self.id = str(uuid4())
-        self.create_at = datetime.now()
-        self.update_at = datetime.now()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def __str__(self):
+        """
+        __str__ return a example of the output.
+        """
         return "[{}] ({}) {}".format(__class__.__name__, self.id, self.__dict__)
 
+    # Public instnace
+
     def save(self):
+        """
+        save - update the date of update_at.
+        """
         self.update_at = datetime.now()
+
+    def to_dict(self):
+        """
+        to_dict - return a string to a dict of the BaseModel.
+        """
+        for key in self.__dict__:
+            if key == "create_at":
+                self.__dict__[key] = self.create_at.isoformat()
+            if key == "update_at":
+                self.__dict__[key] = self.update_at.isoformat()
+        self.__dict__['__class__'] = __class__.__name__
+        return self.__dict__
+
