@@ -2,10 +2,10 @@
 
 from datetime import datetime
 from uuid import uuid4
-
 """
 BaseModel - create the base object
 """
+
 
 class BaseModel():
     """ BaseModel """
@@ -22,12 +22,16 @@ class BaseModel():
                     self.id = kwargs['id']
                 elif key == "created_at":
                     # Convert to string a datetime format, using
-                    # datetime.strptime([date in str], ["the format of the string"])
-                    self.created_at = datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                    # datetime.strptime([date in str],
+                    # ["the format of the string"])
+                    self.created_at = datetime.strptime(kwargs['created_at'],
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == "updated_at":
-                    self.updated_at = datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                    self.updated_at = datetime.strptime(kwargs['updated_at'],
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
                 else:
-                    # Add others values, create in object the keys if not are id, updated_at
+                    # Add others values, create in object the keys
+                    # if not are id, updated_at
                     # and created_at, create the data using self.__dict__
                     self.__dict__[key] = value
         else:
@@ -39,7 +43,8 @@ class BaseModel():
         """
         __str__ return a example of the output.
         """
-        return "[{}] ({}) {}".format(__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(__class__.__name__,
+                                     self.id, self.__dict__)
 
     # Public instnace
 
