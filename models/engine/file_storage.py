@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from models.base_model import BaseModel
 import json
 import models
 """
@@ -48,7 +49,6 @@ class FileStorage:
         # seralized for JSON
         new_dict = dict()
         for key, value in self.__objects.items():
-            # To fix, how i import to_dict
             obj_dict = value.to_dict()
             new_dict[key] = obj_dict
         new_json = json.dumps(new_dict)
@@ -59,10 +59,18 @@ class FileStorage:
         """
         reload - reload the data to json
         """
+        # 1. verify if file exists
+        # 2. load data in variable, read the file
+        # 3. create the json for variable new_dict
+        # 4. iterate de variables key - val
+        # 5. dict {} = the copy var2. and add the new data
         try:
             with open(self.__file_path, encoding="utf-8") as f:
-                data = f.read()
-                self.__objects = json.loads(data)
+                data = json.loads(f.read())
+                new_dict = dict()
+                for key, value in data.items():
+                    new_dict[key] = BaseModel(**value)
+                    print(key)
+                self.__objects = new_dict
         except:
-            # if error pass
             pass
