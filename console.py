@@ -6,6 +6,8 @@ Class prube - create command to print a interpreter
 
 
 class HBNBCommand(cmd.Cmd):
+    # Create a prompt hbnb
+    prompt = '(hbnb) '
     def do_quit(self, line):
         """Quit command to exit the program
         """
