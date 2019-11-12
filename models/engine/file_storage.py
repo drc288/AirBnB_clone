@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 
-import json
-import base_models
 from models.base_model import BaseModel
+import json
 """
 FileStorage - save file and get the data, save the data in
 format JSON and create new object to save a json
@@ -49,7 +48,6 @@ class FileStorage:
         # seralized for JSON
         new_dict = dict()
         for key, value in self.__objects.items():
-            # To fix, how i import to_dict
             obj_dict = value.to_dict()
             new_dict[key] = obj_dict
         new_json = json.dumps(new_dict)
@@ -62,8 +60,15 @@ class FileStorage:
         """
         try:
             with open(self.__file_path, encoding="utf-8") as f:
-                data = f.read()
-                self.__objects = json.loads(data)
-        except:
-            # if error pass
+                # Read the JSON and create variable
+                data = json.loads(f.read())
+                # Create empty dict
+                new_dict = dict()
+                # Reload any data of the file and put in new dict
+                for key, value in data.items():
+                    new_dict[key] = BaseModel(**value)
+                # Save in objects
+                self.__objects = new_dict
+        except Exception:
+            # Pass if error
             pass
