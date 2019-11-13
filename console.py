@@ -20,9 +20,9 @@ base = {'BaseModel': BaseModel, 'User': User, 'State': State,
 
 
 class HBNBCommand(cmd.Cmd):
-
     # Create a prompt hbnb
     prompt = '(hbnb) '
+
     def do_quit(self, line):
         """Quit command to exit the program
         """
@@ -30,6 +30,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
+        """emptyline
+        """
         pass
 
     def do_EOF(self, line):
@@ -135,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Delete an instance based on the class name and id"""
         # Splits line by the spaces
-        ins =  line.split()
+        ins = line.split()
         # Flag
         id_ins = False
         # if no arguments happen
@@ -143,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         # if you just pass the class name
         elif len(ins) < 2:
-        # Compare class name with key of base
+            # Compare class name with key of base
             if not ins[0] in base.keys():
                 print("** class doesn't exist **")
             else:
@@ -154,7 +156,7 @@ class HBNBCommand(cmd.Cmd):
             new_dict = storage.all()
             # iterate new_dict
             for key in new_dict.keys():
-            # splits each key
+                # splits each key
                 nd = key.split(".")
                 # if classname is equal to nd remove it
                 if ins[1] == nd[1]:
@@ -211,6 +213,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
             return
+
 
 if __name__ == '__main__':
     # Run a infinithe loop
