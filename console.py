@@ -9,6 +9,7 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 import cmd
+import shlex
 """
 HBNBCommand - create command to print a interpreter
 for AirBnB
@@ -171,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
         use - 'update [NAME_OBJECT] [ID] [ATTRIBUTE_NAME] "[ATTRIBUTE_VALUE]"'
         """
         # Create argc and argv
-        argv = line.split()
+        argv = shlex.split(line)
         argc = len(argv)
         # Verify if the input are empty
         if argc == 0:
@@ -201,7 +202,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             else:
-                obj_in.__dict__[argv[2]] = argv[3][1:-1]
+                obj_in.__dict__[argv[2]] = argv[3]
                 obj_in.updated_at = datetime.now()
                 storage.save()
         else:
