@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         argc = len(argv)
         # Verify if argv is empty
         if argc == 0:
-            print("** class nam missing **")
+            print("** class name missing **")
         # Else verify if the the class is allowed in base
         else:
             # if class is allowed
