@@ -172,10 +172,9 @@ class HBNBCommand(cmd.Cmd):
         use - 'update [NAME_OBJECT] [ID] [ATTRIBUTE_NAME] "[ATTRIBUTE_VALUE]"'
         """
         # Create argc and argv
-        argv = shlex.split(line)
+        argv = line.split()
         argc = len(argv)
         # List to attributes to not edit
-        to_not_edit = ["id", "created_at", "updated_at"]
         # Verify if the input are empty
         if argc == 0:
             print("** class name missing **")
@@ -191,28 +190,27 @@ class HBNBCommand(cmd.Cmd):
             return
         # If argv[2] (ATTRIBUTE_NAME) no are in
         # to_not_edit execute
-        if argv[2] not in to_not_edit:
-            # Load all obects
-            instances = storage.all()
-            # Construct the key according to
-            # parameters
-            key_ref = argv[0] + "." + argv[1]
-            # Verify if the key_ref exists in instances
-            if key_ref in instances.keys():
-                obj_in = instances[key_ref]
-                if argc == 2:
-                    print("** attribute name missing **")
-                    return
-                elif argc == 3:
-                    print("** value missing **")
-                    return
-                else:
-                    obj_in.__dict__[argv[2]] = argv[3]
-                    obj_in.updated_at = datetime.now()
-                    storage.save()
-            else:
-                print("** no instance found **")
+        # Load all obects
+        instances = storage.all()
+        # Construct the key according to
+        # parameters
+        key_ref = argv[0] + "." + argv[1]
+        # Verify if the key_ref exists in instances
+        if key_ref in instances.keys():
+            obj_in = instances[key_ref]
+            if argc == 2:
+                print("** attribute name missing **")
                 return
+            elif argc == 3:
+                print("** value missing **")
+                return
+            else:
+                obj_in.__dict__[argv[2]] = argv[3][1:-1]
+                obj_in.updated_at = datetime.now()
+                storage.save()
+        else:
+            print("** no instance found **")
+            return
 
 if __name__ == '__main__':
     # Run a infinithe loop
