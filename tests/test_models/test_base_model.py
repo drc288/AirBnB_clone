@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import unittest
 from models.base_model import BaseModel
+import pep8
+
 """
 TestBaseModel - Unittest for base_model
 """
@@ -21,18 +23,29 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertIsNotNone(BaseModel.__doc__)
 
-    def id_str(self):
+    def test_id_str(self):
         """Test if the id is a string """
-        self.assertIsIntance(type(self.objects.id), str)
+        self.assertEqual(type(self.objects.id), str)
 
-    def add_attribute(self):
+    def test_pep8_conformance_model(self):
+        """
+        Test that we conform to PEP8.
+        """
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/base_model.py'])
+        self.assertEqual(result.total_errors, 0, "Fix pep8")
+
+    def test_add_attribute(self):
         """
         Test to add the name and my_number attributes to the class
         """
-        self.name = "Holberton"
-        self.my_number = 89
-        self.assertIsInstances(self.name, self.objects)
-        self.assertIsInstances(self.my_number, self.objects)
+        self.objects.name = "Holberton"
+        self.objects.my_number = 89
+       # self.assertIsTrue(hasattr(self.objects, 'id')
+        self.assertTrue(isinstance(self.objects, BaseModel))
+
+    # test dict
+    # test save
 
 if __name__ == '__main__':
     unittest.main()
