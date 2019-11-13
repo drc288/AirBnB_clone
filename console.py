@@ -109,9 +109,7 @@ class HBNBCommand(cmd.Cmd):
         if argc == 0:
             # Create a empty list for all instances
             list_for_all = []
-            for key in instances.keys():
-                print(key)
-                print(key)
+            for key, obj in instances.items():
                 list_for_all.append(str(obj))
             print(list_for_all)
             return
