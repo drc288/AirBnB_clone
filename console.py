@@ -8,7 +8,9 @@ import cmd
 HBNBCommand - create command to print a interpreter
 for AirBnB
 """
-base = {'BaseModel': BaseModel, 'User': User}
+base = {'BaseModel': BaseModel, 'User': User, 'State': State,
+        'City': City, 'Amenity': Amenity, 'Place': Place,
+        'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
