@@ -174,6 +174,8 @@ class HBNBCommand(cmd.Cmd):
         # Create argc and argv
         argv = shlex.split(line)
         argc = len(argv)
+        # List to attributes to not edit
+        to_not_edit = ["id", "created_at", "updated_at"]
         # Verify if the input are empty
         if argc == 0:
             print("** class name missing **")
@@ -187,27 +189,30 @@ class HBNBCommand(cmd.Cmd):
         if argc == 1:
             print("** instance id missing **")
             return
-        # Load all obects
-        instances = storage.all()
-        # Construct the key according to
-        # parameters
-        key_ref = argv[0] + "." + argv[1]
-        # Verify if the key_ref exists in instances
-        if key_ref in instances.keys():
-            obj_in = instances[key_ref]
-            if argc == 2:
-                print("** attribute name missing **")
-                return
-            elif argc == 3:
-                print("** value missing **")
-                return
+        # If argv[2] (ATTRIBUTE_NAME) no are in
+        # to_not_edit execute
+        if argv[2] not in to_not_edit:
+            # Load all obects
+            instances = storage.all()
+            # Construct the key according to
+            # parameters
+            key_ref = argv[0] + "." + argv[1]
+            # Verify if the key_ref exists in instances
+            if key_ref in instances.keys():
+                obj_in = instances[key_ref]
+                if argc == 2:
+                    print("** attribute name missing **")
+                    return
+                elif argc == 3:
+                    print("** value missing **")
+                    return
+                else:
+                    obj_in.__dict__[argv[2]] = argv[3]
+                    obj_in.updated_at = datetime.now()
+                    storage.save()
             else:
-                obj_in.__dict__[argv[2]] = argv[3]
-                obj_in.updated_at = datetime.now()
-                storage.save()
-        else:
-            print("** no instance found **")
-            return
+                print("** no instance found **")
+                return
 
 if __name__ == '__main__':
     # Run a infinithe loop
