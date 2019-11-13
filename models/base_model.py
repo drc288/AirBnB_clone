@@ -46,7 +46,7 @@ class BaseModel():
         """
         __str__ return a example of the output.
         """
-        return "[{}] ({}) {}".format(__class__.__name__,
+        return "[{}] ({}) {}".format(self.__class__.__name__,
                                      self.id, self.__dict__)
 
     # Public instnace
