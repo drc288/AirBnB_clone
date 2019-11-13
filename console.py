@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
 from models.__init__ import storage
+from datetime import datetime
 import cmd
 """
 HBNBCommand - create command to print a interpreter
@@ -32,74 +33,95 @@ class HBNBCommand(cmd.Cmd):
         """create new object
         use 'create [NAME_OBJECT]'
         """
-        try:
-            # Verify if base in line exists
-            if base[line]:
-                # Create new object
-                # BaseModel()
-                bs = base[line]()
-                # Save the file
-                storage.new(bs)
-                bs.save()
-                # Print id
-                print(bs.id)
-        except KeyError:
-            # Exception for KeyError
-            if line is "":
-                print("** class name missing **")
+        # Create argc and argv for line
+        argv = line.split()
+        argc = len(argv)
+        # Verify if argv is empty
+        if argc == 0:
+            print("** class nam missing **")
+        # Else verify if the the class is allowed in base
+        else:
+            # if class is allowed
+            if argv[0] in base:
+                # Create new instans, storage the new instance
+                # and save the instance
+                new_inst = base[argv[0]]()
+                storage.new(new_inst)
+                new_inst.save()
+                # print the id
+                print(new_inst.id)
             else:
+                # Print error if base model exists in base
                 print("** class doesn't exist **")
 
     def do_show(self, line):
         """ show the object base the id
         use 'show [NAME_OBJECT] [ID]'
         """
-        # Create list of line
-        models = line.split()
+        # Create argv for line
+        argv = line.split()
+        argc = len(argv)
         # Create a flag
         id_ins = False
-        # Verify if len is 0
-        if len(models) < 1:
+        # Verify if argc is 0
+        if argc == 0:
             print("** class name missing **")
-        # Verify if len is 1
-        elif  len(models) < 2:
-            # If is 1, check if the name of model are in
-            # base
-            if not models[0] in base.keys():
-                print("** class doesn't exist **")
-            else:
-                # If not instance id is missing
-                print('** instance id missing **')
+            return
+        # Verify if the NAME_OBJECT is not exist in base
+        if argv[0] not in base:
+            # Print error
+            print("** class doesn't exist **")
+            return
+        # Verify if have BaseName but not id
+        if argc == 1:
+            # Print error
+            print("** instance id missing **")
+            return
+        # Get all instances
+        instances = storage.all()
+        # Construct the key ref for verify the instance
+        key_ref = argv[0] + "." + argv[1]
+        # Verify if key_ref exist in instances.keys()
+        if key_ref in instances.keys():
+            print(instances[key_ref])
         else:
-            # Create new dict and get the storage of the obj
-            new_dict = storage.all()
-            # Iterate key
-            for key in new_dict.keys():
-                # Split the key
-                nd = key.split(".")
-                # Verify if the id is equal in the kays
-                if models[1] == nd[1]:
-                    # Print the value of the key
-                    print(new_dict[key])
-                    id_ins = True
-            # Verify if the flag are False or True
-            if id_ins is False:
-                print("** no instance found **")
+            print("** no instance found **")
 
     def do_all(self, line):
-        """ all return all attributes of a object
+        """ select all objects and return all attributes of NAME_OBJECT
         use 'all [NAME_OBJECT]' - NAME_OBJECT is any name of de object
         """
-        # Create new object an put te storage.all()
-        # get any objects
-        new_dict = storage.all()
-        if line is "":
+        # Get the argc and argv
+        argv = line.split()
+        argc = len(argv)
+        # Load all the obects in instances
+        instances = storage.all()
+        # Verify if len of argc is equal to 0
+        if argc == 0:
+            # Create a empty list for all instances
+            list_for_all = []
+            for key, obj in instances.items():
+                list_for_all.append(str(obj))
+            print(list_for_all)
+            return
+        # Verify if class not exist in base
+        if argv[0] not in base:
             print("** class doesn't exist **")
-        for key in new_dict.keys():
-            sp_data = key.split(".")
-            if sp_data[0] == line:
-                obj = new_dict[key]
-                print(obj)
+            return
+        # If not - exist
+        else:
+            # Create new list
+            new_list = []
+            # Iterate in key and obj
+            for key, obj in instances.items():
+                # Example if BaseModel is the type of
+                # type(obj).__name__ this is equal a
+                # BaseModel
+                if argv[0] == type(obj).__name__:
+                    # Append the string of object
+                    new_list.append(str(obj))
+            # Print the new list
+            print(new_list)
 
     def do_destroy(self, line):
         """Delete an instance based on the class name and id"""
@@ -135,6 +157,48 @@ class HBNBCommand(cmd.Cmd):
             # if it does not exist
             if id_ins is False:
                 print("** no instance found **")
+
+    def do_update(self, line):
+        """ update - update a object and add attributes
+        use - 'update [NAME_OBJECT] [ID] [ATTRIBUTE_NAME] "[ATTRIBUTE_VALUE]"'
+        """
+        # Create argc and argv
+        argv = line.split()
+        argc = len(argv)
+        # Verify if the input are empty
+        if argc == 0:
+            print("** class name missing **")
+            return
+        # If not empty but no find in base the
+        # argv[0] = BaseModel
+        if argv[0] not in base:
+            print("** class doesn't exist **")
+            return
+        # Verify if only the [NAME_OBJECT] fits
+        if argc == 1:
+            print("** instance id missing **")
+            return
+        # Load all obects
+        instances = storage.all()
+        # Construct the key according to
+        # parameters
+        key_ref = argv[0] + "." + argv[1]
+        # Verify if the key_ref exists in instances
+        if key_ref in instances.keys():
+            obj_in = instances[key_ref]
+            if argc == 2:
+                print("** attribute name missing **")
+                return
+            elif argc == 3:
+                print("** value missing **")
+                return
+            else:
+                obj_in.__dict__[argv[2]] = argv[3][1:-1]
+                obj_in.updated_at = datetime.now()
+                storage.save()
+        else:
+            print("** no instance found **")
+            return
 
 if __name__ == '__main__':
     # Run a infinithe loop
