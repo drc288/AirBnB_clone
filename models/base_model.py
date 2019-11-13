@@ -67,5 +67,5 @@ class BaseModel():
         # Create the isoformat for datetime.now()
         copy_dict["created_at"] = self.created_at.isoformat()
         copy_dict["updated_at"] = self.updated_at.isoformat()
-        copy_dict['__class__'] = self.__dict__["__class__"]
+        copy_dict['__class__'] = __dict__.__name__
         return copy_dict
