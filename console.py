@@ -2,12 +2,13 @@
 from models.base_model import BaseModel
 from models.__init__ import storage
 from datetime import datetime
+from models.user import User
 import cmd
 """
 HBNBCommand - create command to print a interpreter
 for AirBnB
 """
-base = {'BaseModel': BaseModel}
+base = {'BaseModel': BaseModel, 'User': User}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -147,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
             for key in new_dict.keys():
             # splits each key
                 nd = key.split(".")
-                # if classname is equal a nd remove it
+                # if classname is equal to nd remove it
                 if ins[1] == nd[1]:
                     id_ins = True
                     del new_dict[key]

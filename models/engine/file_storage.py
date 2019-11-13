@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+from models.user import User
 from models.base_model import BaseModel
 import json
 """
@@ -66,9 +66,10 @@ class FileStorage:
                 new_dict = dict()
                 # Reload any data of the file and put in new dict
                 for key, value in data.items():
-                    new_dict[key] = BaseModel(**value)
+                    classes = value['__class__']
+                    self.__objects[key] = globals()[classes](**value)
                 # Save in objects
-                self.__objects = new_dict
+
         except Exception:
             # Pass if error
             pass
