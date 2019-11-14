@@ -44,8 +44,16 @@ class TestBaseModel(unittest.TestCase):
        # self.assertIsTrue(hasattr(self.objects, 'id')
         self.assertTrue(isinstance(self.objects, BaseModel))
 
-    # test dict
-    # test save
+    def test_to_dict(self):
+        """ Tests that the function retrieves a dictionary """
+        ret_dict = self.objects.to_dict()
+        self.assertTrue(isinstance(ret_dict, dict))
+
+    def test_save(self):
+        """ updates the public instance attribute updated_at"""
+        var = self.objects.updated_at
+        self.objects.save()
+        self.assertNotEqual(var, self.objects.updated_at)
 
 if __name__ == '__main__':
     unittest.main()
