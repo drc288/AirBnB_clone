@@ -6,4 +6,5 @@ State - create new State object that inherits from BaseModel
 
 
 class State(BaseModel):
+    """Public class attributes"""
     name = ""

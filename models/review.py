@@ -5,7 +5,8 @@ Review - create object for review
 """
 
 
-class Review(Basemodel):
+class Review(BaseModel):
+    """Public class attributes"""
     place_id = ""
     user_id = ""
     text = ""
