@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         # if you just pass the class name
         elif len(ins) < 2:
         # Compare class name with key of base
-            if not ins[0] in base.keys():
+            if ins[0] not in base:
                 print("** class doesn't exist **")
             else:
                 print("** instance id missing **")
@@ -160,6 +160,8 @@ class HBNBCommand(cmd.Cmd):
                 if ins[1] == nd[1]:
                     id_ins = True
                     del new_dict[key]
+                    # Save the data in the obects
+                    storage._FileStorage__objects = new_dict
                     # save in file json
                     storage.save()
                     return
