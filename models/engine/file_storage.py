@@ -67,13 +67,11 @@ class FileStorage:
             with open(self.__file_path, encoding="utf-8") as f:
                 # Read the JSON and create variable
                 data = json.loads(f.read())
-                # Create empty dict
-                new_dict = dict()
-                # Reload any data of the file and put in new dict
+                # Reload any data of the file and put in __objects
                 for key, value in data.items():
                     classes = value['__class__']
+                    # Save values in __objects and access to base
                     self.__objects[key] = globals()[classes](**value)
-                # Save in objects
 
         except Exception:
             # Pass if error

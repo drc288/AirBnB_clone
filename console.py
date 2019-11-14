@@ -135,12 +135,12 @@ class HBNBCommand(cmd.Cmd):
             print(new_list)
 
     def do_destroy(self, line):
-        """Delete an instance based on the class name and id"""
+        """Delete an instance based on the class name and id
+        use - 'destroy [NAME_OBJECT] [ID]'
+        """
         # Splits line by the spaces
         argv = line.split()
         argc = len(argv)
-        # Flag
-        id_ins = False
         # if no arguments happen
         if argc == 0:
             print("** class name missing **")
