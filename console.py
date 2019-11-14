@@ -137,39 +137,30 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Delete an instance based on the class name and id"""
         # Splits line by the spaces
-        ins = line.split()
+        argv = line.split()
+        argc = len(argv)
         # Flag
         id_ins = False
         # if no arguments happen
-        if len(ins) < 1:
+        if argc == 0:
             print("** class name missing **")
-        # if you just pass the class name
-        elif len(ins) < 2:
-            # Compare class name with key of base
-            if not ins[0] in base.keys():
-                print("** class doesn't exist **")
-            else:
-                print("** instance id missing **")
-        # if the instance of the class name doesn't exist for the id
-        else:
-            # take all the variables
-            new_dict = storage.all()
-            # iterate new_dict
-            for key in new_dict.keys():
-                # splits each key
-                nd = key.split(".")
-                # if classname is equal to nd remove it
-                if ins[1] == nd[1]:
-                    id_ins = True
-                    del new_dict[key]
-                    # Save the data in the obects
-                    storage._FileStorage__objects = new_dict
-                    # save in file json
-                    storage.save()
-                    return
+            return
+        if argv[0] not in base:
+            print("** class doesn't exist **")
+            return
+        if argc == 1:
+            print("** instance id missing **")
+            return
+        # Get all instances
+        instances = storage.all()
+        key_ref = argv[0] + "." + argv[1]
+        if key_ref in instances.keys():
+            del instances[key_ref]
+            storage.save()
+            return
             # if it does not exist
-            if id_ins is False:
-                print("** no instance found **")
+        else:
+            print("** no instance found **")
 
     def do_update(self, line):
         """ update - update a object and add attributes
