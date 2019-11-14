@@ -162,6 +162,8 @@ class HBNBCommand(cmd.Cmd):
                 if ins[1] == nd[1]:
                     id_ins = True
                     del new_dict[key]
+                    # Save the data in the obects
+                    storage._FileStorage__objects = new_dict
                     # save in file json
                     storage.save()
                     return
