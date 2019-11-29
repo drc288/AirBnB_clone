@@ -3,7 +3,9 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
-    /* Configure the image */
-    background: url(../images/logo.png) no-repeat;
+    /* Add image and edit the property of image and not repeat */
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    /* to move 20px when the image are in right he move left 20px */
     background-position: 20px;
 }
