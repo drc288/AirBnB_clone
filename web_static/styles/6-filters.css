@@ -62,10 +62,11 @@ h4 {
     position: absolute;
     border: 1px solid #dddddd;
     border-radius: 4px;
-    width: 215px;
+    width: 212px;
     padding: 18px;
-    margin: 17px auto auto -1px;
+    margin: 15px auto auto -1px;
     min-height: 175px;
+    z-index: 1000;
 }
 
 .popover li {
