@@ -1,4 +1,6 @@
-/**/
+/*
+  Create the content of places
+*/
 .places {
   font-size: 16px;
   text-align: center;
@@ -9,9 +11,8 @@
 }
   
 /*
-  To align in the top left using the vertical-align
-  top align int the top or bottom and align the text
-  in left position
+  Align the text of the left and remove the display
+  of flex in h1
 */
 .places h1 {
   flex: 0 0 100%;
@@ -21,7 +22,7 @@
   
 .places article h2 {
   font-size: 30px;
-  margin-bottom: 39px;
+  margin-bottom: 40px;
 }
   
 .places article {
@@ -71,6 +72,7 @@
   line-height: 135px;
 }
 
+/* NUMBER_BATHROOMS */
 .places .number_bathrooms {
   background-image: url(../images/icon_bath.png);
   background-position: center;
@@ -81,6 +83,10 @@
   line-height: 135px;
 }
 
+/*
+  Position absolute to set teh data in the box and using
+  right and left, using the display flex to add the text in the center
+*/
 .places .price_by_night {
   color:  #FF5A5F;
   position: absolute;
@@ -97,8 +103,13 @@
   top: 14px;
 }
 
+/* Organice the data */
 .places .user {
   text-align: left;
   margin-top: 25px;
+  margin-bottom: 5px;
 }
 
+.places .description {
+  text-align: left;
+}

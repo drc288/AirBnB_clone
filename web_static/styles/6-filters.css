@@ -62,9 +62,9 @@ h4 {
     position: absolute;
     border: 1px solid #dddddd;
     border-radius: 4px;
-    width: 212px;
+    width: 213px;
     padding: 18px;
-    margin: 15px auto auto -1px;
+    margin: 17px auto auto -1px;
     min-height: 175px;
     z-index: 1000;
 }
