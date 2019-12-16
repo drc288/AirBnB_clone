@@ -9,7 +9,6 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 import cmd
-import shlex
 """
 HBNBCommand - create command to print a interpreter
 for AirBnB

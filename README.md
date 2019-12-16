@@ -36,15 +36,15 @@ EOF  all  create  destroy  help  quit  show  update
 
 ```
 
-# create
+### create
 
 create an instance, if it is valid
 
-# all
+### all
 
 call all objects, use all for call all objects and use all [NAME_OBJECT] to call all obects with the same NAME_OBJECT
 
-# show
+### show
 
 show object according to the name of the object and the id
 
