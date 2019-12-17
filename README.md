@@ -48,6 +48,13 @@ call all objects, use all for call all objects and use all [NAME_OBJECT] to call
 
 show object according to the name of the object and the id
 
+### destroy
+
+destroy a object
+
+### update
+
+update a object
 
 ## :ocean: Contributors
 
